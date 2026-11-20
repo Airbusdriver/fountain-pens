@@ -1,0 +1,246 @@
+{
+ "pens": {
+  "custom823": {
+   "name": "Pilot Custom 823",
+   "nib": "F",
+   "order": 1,
+   "useEvery": 7,
+   "cleanEvery": 45,
+   "ink": "",
+   "filledAt": "",
+   "lastUsed": "",
+   "cleanedAt": ""
+  },
+  "heritage912": {
+   "name": "Pilot Heritage 912",
+   "nib": "F",
+   "order": 2,
+   "useEvery": 7,
+   "cleanEvery": 45,
+   "ink": "",
+   "filledAt": "",
+   "lastUsed": "",
+   "cleanedAt": ""
+  },
+  "asvine-p36": {
+   "name": "Asvine P36",
+   "nib": "Bock",
+   "order": 3,
+   "useEvery": 5,
+   "cleanEvery": 30,
+   "ink": "TAG Stationery Kyo-iro Fushimi Inari",
+   "filledAt": "2026-11-17",
+   "lastUsed": "2026-11-20",
+   "cleanedAt": ""
+  },
+  "kakuno": {
+   "name": "Pilot Kakuno",
+   "nib": "F",
+   "order": 4,
+   "useEvery": 5,
+   "cleanEvery": 30,
+   "ink": "",
+   "filledAt": "",
+   "lastUsed": "",
+   "cleanedAt": ""
+  },
+  "jinhao82": {
+   "name": "Jinhao 82",
+   "nib": "F",
+   "order": 5,
+   "useEvery": 4,
+   "cleanEvery": 30,
+   "ink": "Pilot Iroshizuku Momiji",
+   "filledAt": "2026-11-20",
+   "lastUsed": "2026-11-20",
+   "cleanedAt": ""
+  },
+  "jinhao9016": {
+   "name": "Jinhao 9016",
+   "nib": "M",
+   "order": 6,
+   "useEvery": 4,
+   "cleanEvery": 30,
+   "ink": "",
+   "filledAt": "",
+   "lastUsed": "",
+   "cleanedAt": ""
+  },
+  "pen-mwfuftmd": {
+   "name": "majohn P140",
+   "nib": "F",
+   "order": 7,
+   "useEvery": 5,
+   "cleanEvery": 30,
+   "ink": "Jinhao Black",
+   "filledAt": "2026-11-14",
+   "lastUsed": "2026-11-20",
+   "cleanedAt": ""
+  }
+ },
+ "inks": {
+  "sailor-yoinotanabata": {
+   "brand": "Sailor",
+   "line": "Sendai",
+   "name": "Yoi no Tanabata",
+   "color": "#3a3f7a",
+   "order": 1
+  },
+  "sailor-tokiwamatsu": {
+   "brand": "Sailor",
+   "line": "Shikiori",
+   "name": "Tokiwamatsu",
+   "color": "#2f5a3c",
+   "order": 2
+  },
+  "sailor-kinmokusei": {
+   "brand": "Sailor",
+   "line": "Shikiori",
+   "name": "Kin-mokusei",
+   "color": "#e07a1f",
+   "order": 3
+  },
+  "tag-fushimiinari": {
+   "brand": "TAG Stationery",
+   "line": "Kyo-iro",
+   "name": "Fushimi Inari",
+   "color": "#c8452f",
+   "order": 4
+  },
+  "tag-urahairo": {
+   "brand": "TAG Stationery",
+   "line": "Kyo-no-oto",
+   "name": "Urahairo",
+   "color": "#7f9a8c",
+   "order": 5
+  },
+  "jinhao-black": {
+   "brand": "Jinhao",
+   "line": "",
+   "name": "Black",
+   "color": "#1a1a1a",
+   "order": 6
+  },
+  "jherbin-poussiere": {
+   "brand": "J. Herbin",
+   "line": "",
+   "name": "Poussière de Lune (#48)",
+   "color": "#6b3a5e",
+   "order": 7
+  },
+  "iroshizuku-momiji": {
+   "brand": "Pilot",
+   "line": "Iroshizuku",
+   "name": "Momiji",
+   "color": "#c8283a",
+   "order": 8
+  },
+  "iroshizuku-tsukiyo": {
+   "brand": "Pilot",
+   "line": "Iroshizuku",
+   "name": "Tsuki-yo",
+   "color": "#1f4f63",
+   "order": 9
+  },
+  "iroshizuku-shinryoku": {
+   "brand": "Pilot",
+   "line": "Iroshizuku",
+   "name": "Shin-ryoku",
+   "color": "#1f5a45",
+   "order": 10
+  }
+ },
+ "logs": [
+  {
+   "id": "1g1bujm0tbb62u0fjmst",
+   "createdAt": "2026-11-14T03:29:13.845Z",
+   "date": "2026-11-14",
+   "ink": "Jinhao Black",
+   "note": "고장난 것 같은데 일단 주입",
+   "penId": "pen-mwfuftmd",
+   "type": "fill"
+  },
+  {
+   "id": "9opxsn5mupjslo3ww8u2",
+   "createdAt": "2026-11-14T03:30:26.373Z",
+   "date": "2026-11-14",
+   "ink": "Jinhao Black",
+   "note": "test. 나오는 건 잘 나옴. 새지 않는지 관찰",
+   "penId": "pen-mwfuftmd",
+   "type": "use"
+  },
+  {
+   "id": "ajrj83hydo9lsn094fcb",
+   "createdAt": "2026-11-18T02:29:49.541Z",
+   "date": "2026-11-18",
+   "ink": "Jinhao Black",
+   "note": "",
+   "penId": "pen-mwfuftmd",
+   "type": "use"
+  },
+  {
+   "id": "bb6mqpb80w09ds7k5khp",
+   "createdAt": "2026-11-17T08:23:20.987Z",
+   "date": "2026-11-17",
+   "ink": "TAG Stationery Kyo-iro Fushimi Inari",
+   "note": "영어공부",
+   "penId": "asvine-p36",
+   "type": "use"
+  },
+  {
+   "id": "bqgs19wvy3lrs3zkjpk7",
+   "createdAt": "2026-11-17T06:30:26.485Z",
+   "date": "2026-11-17",
+   "ink": "TAG Stationery Kyo-iro Fushimi Inari",
+   "note": "잉크 충전",
+   "penId": "asvine-p36",
+   "type": "fill"
+  },
+  {
+   "id": "c6l9bibmxvplna656zrl",
+   "createdAt": "2026-11-18T02:29:46.750Z",
+   "date": "2026-11-18",
+   "ink": "TAG Stationery Kyo-iro Fushimi Inari",
+   "note": "",
+   "penId": "asvine-p36",
+   "type": "use"
+  },
+  {
+   "id": "fea7ntbfk6v1i2p7ee4o",
+   "createdAt": "2026-11-20T04:25:29.877Z",
+   "date": "2026-11-20",
+   "ink": "Jinhao Black",
+   "note": "",
+   "penId": "pen-mwfuftmd",
+   "type": "use"
+  },
+  {
+   "id": "fvjypqmo7p3da6bq3kjl",
+   "createdAt": "2026-11-17T08:23:37.437Z",
+   "date": "2026-11-17",
+   "ink": "Jinhao Black",
+   "note": "",
+   "penId": "pen-mwfuftmd",
+   "type": "use"
+  },
+  {
+   "id": "mx6g55byrsrjgg2yass9",
+   "createdAt": "2026-11-20T04:25:32.265Z",
+   "date": "2026-11-20",
+   "ink": "TAG Stationery Kyo-iro Fushimi Inari",
+   "note": "",
+   "penId": "asvine-p36",
+   "type": "use"
+  },
+  {
+   "id": "pwkw3si47aegp7roj9r3",
+   "createdAt": "2026-11-20T06:05:41.880Z",
+   "date": "2026-11-20",
+   "ink": "Pilot Iroshizuku Momiji",
+   "note": "구매 후 첫 잉입",
+   "penId": "jinhao82",
+   "type": "fill"
+  }
+ ],
+ "updatedAt": "2026-11-20T00:00:00Z"
+}
