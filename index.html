@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>만년필 관리</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="만년필">
+<meta name="theme-color" content="#1d3b6e">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{
+  --bg:#f6f3ee; --card:#fffdf9; --ink:#1f2430; --muted:#6b6f7a; --line:#e4ded3;
+  --accent:#1d3b6e; --ok:#2f7d4f; --warn:#c07a12; --due:#c4501f; --clean:#a3263b; --empty:#9a9a9a;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#16181d;--card:#1f2229;--ink:#ebe7df;--muted:#9a9ea8;--line:#323641;--accent:#8fb0ea;--ok:#5fbf86;--warn:#e0a640;--due:#ec7a4a;--clean:#e0637a;--empty:#777}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;font-size:15px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding:calc(16px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) calc(60px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left))}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+h1{font-size:24px;margin:0 0 2px;font-weight:700}
+.sub{color:var(--muted);font-size:13px;margin-bottom:14px}
+.sync{font-size:12px;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--empty)}
+.dot.ok{background:var(--ok)}.dot.busy{background:var(--warn)}.dot.err{background:var(--clean)}
+.banner{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;padding:12px 14px;margin-bottom:16px}
+.banner b{color:var(--accent)}
+.banner .alerts{margin-top:6px;font-size:14px;color:var(--muted)}
+.setup{background:var(--card);border:1px solid var(--warn);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.card.rec{outline:2px solid var(--accent)}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.name{font-weight:700;font-size:16px}
+.nib{color:var(--muted);font-size:13px}
+.badge{font-size:12px;font-weight:700;padding:3px 8px;border-radius:999px;color:#fff;white-space:nowrap}
+.b-ok{background:var(--ok)}.b-warn{background:var(--warn)}.b-due{background:var(--due)}.b-clean{background:var(--clean)}.b-empty{background:var(--empty)}
+.inkline .ink{font-weight:500}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:13px;color:var(--muted)}
+.meta span:nth-child(even){color:var(--ink)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%}
+.btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+button{font:inherit;font-size:14px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:7px 11px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:disabled{opacity:.5}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+@media (prefers-color-scheme: dark){button.primary{color:#111}}
+button.link{border:none;padding:4px 6px;color:var(--muted)}
+h2{font-size:17px;margin:26px 0 10px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+select,input,textarea{font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);width:100%}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:none}
+.t-fill{color:var(--accent);font-weight:700}.t-use{color:var(--ok)}.t-clean{color:var(--clean)}
+.empty{color:var(--muted);padding:18px;text-align:center;background:var(--card);border:1px dashed var(--line);border-radius:10px}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;padding:16px;z-index:10}
+.modal-bg.show{display:flex}
+.modal{background:var(--card);border-radius:14px;padding:18px;width:100%;max-width:420px;max-height:90vh;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.modal h3{margin:0;font-size:17px}
+.modal label{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}
+.note{font-size:12px;color:var(--muted)}
+.toast{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20}
+.toast.show{opacity:1}
+.hist{font-size:12px;color:var(--muted)}
+.sw{display:inline-block;width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.15);vertical-align:-1px;margin-right:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:13px;cursor:pointer}
+.chip .in{font-size:11px;color:var(--muted);margin-left:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>만년필 관리</h1><div class="sub">잉크 주입·사용 기록과 닙 마름 방지 알림</div></div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+      <span class="sync"><span id="dot" class="dot"></span><span id="syncText">불러오는 중</span></span>
+      <span><button class="link" id="refreshBtn" title="새로고침">↻</button><button class="link" id="settingsBtn" title="설정">⚙ 설정</button></span>
+    </div>
+  </header>
+
+  <div id="setup" class="setup" style="display:none">이 기기에서는 아직 GitHub 토큰이 없어 <b>읽기 전용</b>입니다. 오른쪽 위 <b>⚙ 설정</b>에서 토큰을 입력하면 기록할 수 있습니다.</div>
+  <div id="banner" class="banner" style="display:none"></div>
+  <div id="grid" class="grid"></div>
+
+  <h2><span>잉크 목록</span><button id="addInkBtn">+ 잉크 추가</button></h2>
+  <div id="inks" class="chips"></div>
+
+  <h2>
+    <span>기록</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <select id="filter" style="width:auto;font-size:14px"><option value="">전체 만년필</option></select>
+      <button id="addPenBtn">+ 만년필</button>
+    </span>
+  </h2>
+  <div id="logs"></div>
+  <p class="note" style="margin-top:14px">상태 기준 · <b>써주세요</b>: 마지막 사용 후 '사용 주기'일 이상 · <b>세척 권장</b>: 잉크 주입 후 '세척 주기'일 이상 · 주기는 각 펜의 ⚙에서 바꿀 수 있습니다.</p>
+</div>
+
+<div id="modalBg" class="modal-bg"><div class="modal" id="modal"></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+(function(){
+  // ---------- GitHub storage ----------
+  const OWNER="Airbusdriver", REPO="fountain-pens", BRANCH="data", PATH="data.json";
+  const API=`https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`;
+  const LS_TOKEN="fp_token", LS_CACHE="fp_cache";
+  const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+  let token=ls.get(LS_TOKEN)||"";
+  let D={pens:{},inks:{},logs:[]}, sha=null;
+
+  function b64dec(s){ const bin=atob(s.replace(/\s/g,"")); const u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i); return new TextDecoder().decode(u); }
+  function b64enc(str){ const u=new TextEncoder().encode(str); let bin=""; for(let i=0;i<u.length;i+=0x8000) bin+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000)); return btoa(bin); }
+  function norm(d){ d=d||{}; return {pens:d.pens||{},inks:d.inks||{},logs:Array.isArray(d.logs)?d.logs:[]}; }
+
+  async function fetchRemote(){
+    const headers={"Accept":"application/vnd.github+json"};
+    if(token) headers.Authorization="Bearer "+token;
+    const r=await fetch(API+"?ref="+BRANCH+"&t="+Date.now(),{headers,cache:"no-store"});
+    if(r.status===401) throw {code:"token",msg:"토큰이 올바르지 않거나 만료되었습니다"};
+    if(!r.ok){
+      if(!token){ // fallback: raw file (no API rate limit)
+        const r2=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${PATH}?t=${Date.now()}`,{cache:"no-store"});
+        if(r2.ok) return {data:norm(await r2.json()),sha:null};
+      }
+      throw {code:"http",msg:"불러오기 실패 ("+r.status+")"};
+    }
+    const j=await r.json();
+    return {data:norm(JSON.parse(b64dec(j.content))),sha:j.sha};
+  }
+
+  let queue=Promise.resolve();
+  // mutate(fn): fn edits a data object in place. Applied locally at once, then committed on top of the latest remote copy.
+  function mutate(fn,message){
+    fn(D); cache(); render();
+    const job=queue.then(async()=>{
+      setSync("busy","저장 중");
+      for(let attempt=0;attempt<4;attempt++){
+        const cur=await fetchRemote(); const next=norm(JSON.parse(JSON.stringify(cur.data))); fn(next);
+        next.updatedAt=new Date().toISOString();
+        const r=await fetch(API,{method:"PUT",headers:{"Accept":"application/vnd.github+json","Authorization":"Bearer "+token,"Content-Type":"application/json"},
+          body:JSON.stringify({message:message||"update",content:b64enc(JSON.stringify(next,null,1)+"\n"),sha:cur.sha,branch:BRANCH})});
+        if(r.ok){ const j=await r.json(); sha=j.content.sha; D=next; cache(); render(); setSync("ok","저장됨"); return; }
+        if(r.status===409||r.status===422){ await new Promise(s=>setTimeout(s,400+Math.random()*600)); continue; }
+        if(r.status===401||r.status===403) throw {code:"token",msg:"토큰 권한이 없습니다 ("+r.status+")"};
+        throw {code:"http",msg:"저장 실패 ("+r.status+")"};
+      }
+      throw {code:"conflict",msg:"저장 충돌 — 다시 시도해 주세요"};
+    }).catch(async e=>{ console.error(e); setSync("err",e.msg||"저장 실패"); toast(e.msg||"저장하지 못했습니다"); await load(true); });
+    queue=job; return job;
+  }
+
+  function cache(){ ls.set(LS_CACHE,JSON.stringify(D)); }
+  async function load(silent){
+    if(!silent) setSync("busy","불러오는 중");
+    try{ const r=await fetchRemote(); D=r.data; sha=r.sha; cache(); setSync("ok",token?"동기화됨":"읽기 전용"); }
+    catch(e){ console.error(e); setSync("err",e.msg||"오프라인"); if(!silent) toast((e.msg||"불러오지 못했습니다")+" — 저장된 사본을 표시합니다"); }
+    render();
+  }
+  function setSync(k,t){ $("#dot").className="dot "+k; $("#syncText").textContent=t; }
+
+  // ---------- helpers ----------
+  const $ = s => document.querySelector(s);
+  const pens=()=>Object.entries(D.pens).map(([id,v])=>({id,...v}));
+  const inks=()=>Object.entries(D.inks).map(([id,v])=>({id,...v}));
+  const logs=()=>[...D.logs].sort((a,b)=>(b.date||"").localeCompare(a.date||"")||(b.createdAt||"").localeCompare(a.createdAt||""));
+  const inkLabel = i => [i.brand, i.line, i.name].filter(Boolean).join(" ");
+  const sortedInks = () => inks().sort((a,b)=>(a.order??999)-(b.order??999)||inkLabel(a).localeCompare(inkLabel(b)));
+  function inkColor(label){ const i=inks().find(x=>inkLabel(x)===label); return i&&i.color||""; }
+  function sw(label){ const c=inkColor(label); return c?`<span class="sw" style="background:${esc(c)}"></span>`:""; }
+  const rid=p=>p+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+  function todayStr(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+  function daysBetween(a,b){ if(!a||!b) return null; const [y1,m1,d1]=a.split("-").map(Number),[y2,m2,d2]=b.split("-").map(Number); return Math.round((Date.UTC(y2,m2-1,d2)-Date.UTC(y1,m1-1,d1))/86400000); }
+  function fmt(d){ if(!d) return "–"; const [y,m,dd]=d.split("-"); return `${Number(m)}/${Number(dd)}`+(y!==String(new Date().getFullYear())?` (${y.slice(2)})`:""); }
+  function esc(s){ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+  function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),2400); }
+
+  function penState(p){
+    const today=todayStr();
+    if(!p.ink) return {key:"empty",label:"비어있음",ratio:0};
+    const sinceUse=daysBetween(p.lastUsed||p.filledAt,today) ?? 0;
+    const sinceFill=daysBetween(p.filledAt,today) ?? 0;
+    const useEvery=Number(p.useEvery)||5, cleanEvery=Number(p.cleanEvery)||30;
+    const ratio=sinceUse/useEvery;
+    let key="ok",label="양호";
+    if(sinceFill>=cleanEvery){key="clean";label="세척 권장";}
+    else if(sinceUse>=useEvery){key="due";label="써주세요";}
+    else if(sinceUse>=useEvery-1){key="warn";label="곧 써야 함";}
+    return {key,label,sinceUse,sinceFill,useEvery,cleanEvery,ratio};
+  }
+
+  // ---------- render ----------
+  function render(){
+    $("#setup").style.display = token ? "none" : "block";
+    const sorted=pens().sort((a,b)=>(a.order??99)-(b.order??99));
+    const allLogs=logs();
+    const inked=sorted.filter(p=>p.ink).map(p=>({p,s:penState(p)}));
+    const rec=inked.length?inked.reduce((a,b)=>b.s.ratio>a.s.ratio?b:a):null;
+    const due=inked.filter(x=>x.s.key==="due"), clean=inked.filter(x=>x.s.key==="clean"), warn=inked.filter(x=>x.s.key==="warn");
+    const bn=$("#banner");
+    if(sorted.length){
+      bn.style.display="block";
+      let html= rec ? `오늘 쓸 펜: <b>${esc(rec.p.name)}</b> · ${sw(rec.p.ink)}${esc(rec.p.ink)} (마지막 사용 ${rec.s.sinceUse}일 전)` : `잉크가 들어 있는 펜이 없습니다.`;
+      const parts=[];
+      if(clean.length) parts.push(`세척 권장 — ${clean.map(x=>esc(x.p.name)).join(", ")}`);
+      if(due.length) parts.push(`써주세요 — ${due.map(x=>esc(x.p.name)).join(", ")}`);
+      if(warn.length) parts.push(`곧 — ${warn.map(x=>esc(x.p.name)).join(", ")}`);
+      html += `<div class="alerts">${parts.length?parts.join("<br>"):"모든 펜이 양호합니다."}</div>`;
+      bn.innerHTML=html;
+    } else bn.style.display="none";
+
+    $("#grid").innerHTML = !sorted.length ? `<div class="empty">등록된 만년필이 없습니다.</div>` : sorted.map(p=>{
+      const s=penState(p);
+      const pct=p.ink?Math.min(100,Math.round(s.ratio*100)):0;
+      const col={ok:"var(--ok)",warn:"var(--warn)",due:"var(--due)",clean:"var(--clean)",empty:"var(--empty)"}[s.key];
+      const fills=allLogs.filter(l=>l.penId===p.id&&l.type==="fill").slice(0,3);
+      return `<div class="card ${rec&&rec.p.id===p.id?"rec":""}">
+        <div class="top"><div><div class="name">${esc(p.name)}</div><div class="nib">${esc(p.nib||"")}</div></div>
+        <span class="badge b-${s.key}">${s.label}</span></div>
+        <div class="inkline">${p.ink?`${sw(p.ink)}<span class="ink">${esc(p.ink)}</span>`:`<span style="color:var(--muted)">잉크 없음</span>`}</div>
+        ${p.ink?`<div class="meta">
+          <span>주입</span><span>${fmt(p.filledAt)} · ${s.sinceFill}일째 / 세척 ${s.cleanEvery}일</span>
+          <span>마지막 사용</span><span>${fmt(p.lastUsed||p.filledAt)} · ${s.sinceUse}일 전 / 주기 ${s.useEvery}일</span>
+        </div><div class="bar"><i style="width:${pct}%;background:${col}"></i></div>`:
+        `<div class="meta"><span>마지막 세척</span><span>${fmt(p.cleanedAt)}</span></div>`}
+        ${fills.length?`<div class="hist">최근 잉크: ${fills.map(f=>esc(f.ink)+" ("+fmt(f.date)+")").join(" · ")}</div>`:""}
+        <div class="btns">
+          ${p.ink?`<button class="primary" data-act="use" data-id="${p.id}">오늘 썼어요</button>`:""}
+          <button data-act="fill" data-id="${p.id}">${p.ink?"잉크 교체":"잉크 주입"}</button>
+          ${p.ink?`<button data-act="clean" data-id="${p.id}">세척/비움</button>`:""}
+          <button class="link" data-act="edit" data-id="${p.id}" title="설정">⚙</button>
+        </div></div>`;
+    }).join("");
+
+    const f=$("#filter"), cur=f.value;
+    f.innerHTML=`<option value="">전체 만년필</option>`+sorted.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join("");
+    f.value=cur;
+
+    const il=sortedInks();
+    $("#inks").innerHTML = il.length ? il.map(i=>{
+      const lab=inkLabel(i); const inPens=sorted.filter(p=>p.ink===lab).map(p=>p.name);
+      return `<span class="chip" data-ink="${i.id}">${i.color?`<span class="sw" style="background:${esc(i.color)}"></span>`:""}${esc(lab)}${inPens.length?`<span class="in">· ${esc(inPens.join(", "))}</span>`:""}</span>`;
+    }).join("") : `<div class="empty" style="width:100%">등록된 잉크가 없습니다.</div>`;
+    renderLogs();
+  }
+
+  function renderLogs(){
+    const f=$("#filter").value;
+    const list=logs().filter(l=>!f||l.penId===f).slice(0,100);
+    const name=id=>(D.pens[id]||{}).name||"(삭제됨)";
+    const T={fill:["잉크 주입","t-fill"],use:["사용","t-use"],clean:["세척/비움","t-clean"]};
+    $("#logs").innerHTML = list.length ? `<table><thead><tr><th>날짜</th><th>만년필</th><th>내용</th><th></th></tr></thead><tbody>${
+      list.map(l=>`<tr><td>${esc(l.date)}</td><td>${esc(name(l.penId))}</td>
+      <td><span class="${(T[l.type]||[])[1]||""}">${(T[l.type]||[l.type])[0]}</span>${l.ink?" · "+esc(l.ink):""}${l.note?`<div class="hist">${esc(l.note)}</div>`:""}</td>
+      <td style="text-align:right"><button class="link" data-del="${l.id}">×</button></td></tr>`).join("")
+    }</tbody></table>` : `<div class="empty">아직 기록이 없습니다.</div>`;
+  }
+
+  // ---------- modal ----------
+  function openModal(html, onSubmit){
+    $("#modal").innerHTML=html; $("#modalBg").classList.add("show");
+    const form=$("#modal form");
+    form.addEventListener("submit",async e=>{ e.preventDefault();
+      try{ await onSubmit(new FormData(form)); closeModal(); }catch(err){ toast(err&&err.msg||"입력을 확인해 주세요"); } });
+    form.querySelector("[data-close]").addEventListener("click",closeModal);
+  }
+  function closeModal(){ $("#modalBg").classList.remove("show"); }
+  $("#modalBg").addEventListener("click",e=>{ if(e.target.id==="modalBg") closeModal(); });
+  function needToken(){ if(!token){ toast("⚙ 설정에서 GitHub 토큰을 먼저 입력해 주세요"); return true; } return false; }
+
+  function addLogTo(d,obj){ d.logs.push({id:rid("l"),createdAt:new Date().toISOString(),...obj}); }
+
+  function actUse(p){
+    openModal(`<form><h3>${esc(p.name)} — 사용 기록</h3>
+      <label>날짜<input type="date" name="date" value="${todayStr()}" required></label>
+      <label>메모 (선택)<input name="note" placeholder="예: 일기, 업무 노트"></label>
+      <div class="actions"><button type="button" data-close>취소</button><button class="primary" type="submit">저장</button></div></form>`,
+    async fd=>{ const date=fd.get("date"), note=fd.get("note")||"";
+      mutate(d=>{ const x=d.pens[p.id]; if(!x) return; if(!x.lastUsed||date>=x.lastUsed) x.lastUsed=date; addLogTo(d,{penId:p.id,type:"use",date,ink:x.ink||"",note}); }, `use: ${p.name} ${date}`);
+      toast("사용 기록"); });
+  }
+  function actFill(p){
+    const opts=sortedInks().map(i=>{ const lab=inkLabel(i); const busy=pens().filter(x=>x.id!==p.id&&x.ink===lab).map(x=>x.name);
+      return `<option value="${esc(lab)}">${esc(lab)}${busy.length?" (사용 중: "+esc(busy.join(", "))+")":""}</option>`; }).join("");
+    openModal(`<form><h3>${esc(p.name)} — 잉크 ${p.ink?"교체":"주입"}</h3>
+      <label>잉크<select name="inkSel" id="inkSel">${opts}<option value="__other">직접 입력…</option></select></label>
+      <label id="otherWrap" style="display:none">잉크 이름<input name="inkOther" id="inkOther" placeholder="예: Sailor Jentle Yama-dori">
+        <span style="display:flex;gap:6px;align-items:center"><input type="checkbox" name="addToList" checked style="width:auto"> 잉크 목록에도 추가</span></label>
+      <label>주입 날짜<input type="date" name="date" value="${todayStr()}" required></label>
+      <label>메모 (선택)<input name="note" placeholder="예: 컨버터, 카트리지, 세척 후 주입"></label>
+      ${p.ink?`<p class="note">현재 잉크(${esc(p.ink)})는 비운 것으로 처리됩니다.</p>`:""}
+      <div class="actions"><button type="button" data-close>취소</button><button class="primary" type="submit">저장</button></div></form>`,
+    async fd=>{ const date=fd.get("date"), sel=fd.get("inkSel"), note=fd.get("note")||"";
+      const ink=(sel==="__other"?(fd.get("inkOther")||""):sel).trim();
+      if(!ink) throw {msg:"잉크를 선택하세요"};
+      const addInk=sel==="__other"&&fd.get("addToList");
+      mutate(d=>{ const x=d.pens[p.id]; if(!x) return;
+        if(addInk&&!Object.values(d.inks).some(i=>inkLabel(i)===ink)) d.inks[rid("ink-")]={brand:"",line:"",name:ink,color:"",order:999};
+        x.ink=ink; x.filledAt=date; x.lastUsed=date; addLogTo(d,{penId:p.id,type:"fill",date,ink,note}); }, `fill: ${p.name} ← ${ink}`);
+      toast("잉크 주입 기록"); });
+    const s=$("#inkSel"), w=$("#otherWrap");
+    const sync=()=>{ const o=s.value==="__other"; w.style.display=o?"flex":"none"; $("#inkOther").required=o; };
+    s.addEventListener("change",sync); sync();
+  }
+  function actClean(p){
+    openModal(`<form><h3>${esc(p.name)} — 세척/비움</h3>
+      <label>날짜<input type="date" name="date" value="${todayStr()}" required></label>
+      <label>메모 (선택)<input name="note" placeholder="예: 미온수 세척, 건조 중"></label>
+      <p class="note">현재 잉크: ${esc(p.ink||"-")} → 비어있음</p>
+      <div class="actions"><button type="button" data-close>취소</button><button class="primary" type="submit">저장</button></div></form>`,
+    async fd=>{ const date=fd.get("date"), note=fd.get("note")||"";
+      mutate(d=>{ const x=d.pens[p.id]; if(!x) return; addLogTo(d,{penId:p.id,type:"clean",date,ink:x.ink||"",note}); x.ink=""; x.cleanedAt=date; }, `clean: ${p.name}`);
+      toast("세척 기록"); });
+  }
+  function actEdit(p){
+    const isNew=!p;
+    p=p||{name:"",nib:"",useEvery:5,cleanEvery:30,order:pens().length+1};
+    openModal(`<form><h3>${isNew?"만년필 추가":"만년필 설정"}</h3>
+      <label>이름<input name="name" required value="${esc(p.name)}"></label>
+      <label>닙<input name="nib" value="${esc(p.nib)}" placeholder="예: F, M, Bock"></label>
+      <div class="row"><label>사용 주기(일)<input type="number" min="1" max="60" name="useEvery" value="${p.useEvery||5}"></label>
+      <label>세척 주기(일)<input type="number" min="3" max="180" name="cleanEvery" value="${p.cleanEvery||30}"></label></div>
+      <label>순서<input type="number" name="order" value="${p.order??pens().length+1}"></label>
+      <div class="actions">${isNew?"":`<button type="button" class="link" id="delPen" style="margin-right:auto;color:var(--clean)">펜 삭제</button>`}
+      <button type="button" data-close>취소</button><button class="primary" type="submit">저장</button></div></form>`,
+    async fd=>{ const data={name:fd.get("name").trim(),nib:fd.get("nib").trim(),useEvery:Number(fd.get("useEvery"))||5,cleanEvery:Number(fd.get("cleanEvery"))||30,order:Number(fd.get("order"))||99};
+      if(isNew){ const id=rid("pen-"); mutate(d=>{ d.pens[id]={...data,ink:"",filledAt:"",lastUsed:"",cleanedAt:""}; }, `add pen: ${data.name}`); }
+      else mutate(d=>{ if(d.pens[p.id]) Object.assign(d.pens[p.id],data); }, `edit pen: ${data.name}`);
+      toast("저장"); });
+    const del=$("#delPen");
+    if(del) del.addEventListener("click",()=>{
+      if(del.dataset.armed){ mutate(d=>{ delete d.pens[p.id]; }, `delete pen: ${p.name}`); closeModal(); toast("삭제했습니다"); }
+      else { del.dataset.armed="1"; del.textContent="한 번 더 누르면 삭제"; }
+    });
+  }
+  function actInk(i){
+    const isNew=!i; i=i||{brand:"",line:"",name:"",color:"#3355aa",order:999};
+    openModal(`<form><h3>${isNew?"잉크 추가":"잉크 수정"}</h3>
+      <div class="row"><label>브랜드<input name="brand" value="${esc(i.brand)}" placeholder="예: Sailor"></label>
+      <label>라인<input name="line" value="${esc(i.line)}" placeholder="예: Shikiori"></label></div>
+      <label>잉크 이름<input name="name" required value="${esc(i.name)}"></label>
+      <div class="row"><label>색상 (대략)<input type="color" name="color" value="${esc(i.color||"#888888")}" style="height:40px;padding:3px"></label>
+      <label>순서<input type="number" name="order" value="${i.order??999}"></label></div>
+      ${isNew?"":`<p class="note">이름을 바꿔도 이미 남긴 기록의 잉크 이름은 그대로입니다.</p>`}
+      <div class="actions">${isNew?"":`<button type="button" class="link" id="delInk" style="margin-right:auto;color:var(--clean)">삭제</button>`}
+      <button type="button" data-close>취소</button><button class="primary" type="submit">저장</button></div></form>`,
+    async fd=>{ const data={brand:fd.get("brand").trim(),line:fd.get("line").trim(),name:fd.get("name").trim(),color:fd.get("color"),order:Number(fd.get("order"))||999};
+      const id=isNew?rid("ink-"):i.id;
+      mutate(d=>{ d.inks[id]=data; }, `ink: ${inkLabel(data)}`); toast("잉크 저장"); });
+    const del=$("#delInk");
+    if(del) del.addEventListener("click",()=>{
+      if(del.dataset.armed){ mutate(d=>{ delete d.inks[i.id]; }, `delete ink: ${inkLabel(i)}`); closeModal(); toast("삭제했습니다"); }
+      else { del.dataset.armed="1"; del.textContent="한 번 더 누르면 삭제"; }
+    });
+  }
+  function actSettings(){
+    openModal(`<form><h3>설정 — GitHub 연결</h3>
+      <p class="note">저장소: ${OWNER}/${REPO} (브랜치 ${BRANCH})<br>토큰은 이 기기의 이 앱 안에만 저장됩니다. 홈 화면 앱과 Safari는 저장 공간이 달라서 각각 입력해야 합니다.</p>
+      <label>GitHub 토큰<input name="token" type="password" autocomplete="off" value="${esc(token)}" placeholder="github_pat_…"></label>
+      <div class="actions">${token?`<button type="button" class="link" id="clearTok" style="margin-right:auto;color:var(--clean)">토큰 지우기</button>`:""}
+      <button type="button" data-close>취소</button><button class="primary" type="submit">저장 후 확인</button></div></form>`,
+    async fd=>{ const t=(fd.get("token")||"").trim(); if(!t) throw {msg:"토큰을 입력하세요"};
+      const old=token; token=t;
+      try{ await fetchRemote(); ls.set(LS_TOKEN,t); toast("연결되었습니다"); await load(true); }
+      catch(e){ token=old; throw {msg:e.msg||"연결 실패"}; } });
+    const c=$("#clearTok"); if(c) c.addEventListener("click",()=>{ token=""; ls.del(LS_TOKEN); closeModal(); render(); setSync("ok","읽기 전용"); });
+  }
+
+  document.addEventListener("click",e=>{
+    const chip=e.target.closest(".chip[data-ink]");
+    if(chip){ if(needToken()) return; actInk({id:chip.dataset.ink,...D.inks[chip.dataset.ink]}); return; }
+    const b=e.target.closest("button"); if(!b) return;
+    if(b.id==="settingsBtn") return actSettings();
+    if(b.id==="refreshBtn") return load();
+    if(b.id==="addInkBtn"){ if(needToken()) return; return actInk(null); }
+    if(b.id==="addPenBtn"){ if(needToken()) return; return actEdit(null); }
+    if(b.dataset.act){ if(needToken()) return; const p={id:b.dataset.id,...D.pens[b.dataset.id]};
+      ({use:actUse,fill:actFill,clean:actClean,edit:actEdit})[b.dataset.act](p); }
+    else if(b.dataset.del){ if(needToken()) return;
+      if(b.dataset.armed){ const id=b.dataset.del; mutate(d=>{ d.logs=d.logs.filter(l=>l.id!==id); }, "delete log"); toast("기록 삭제"); }
+      else { b.dataset.armed="1"; b.textContent="삭제?"; setTimeout(()=>{ if(b.isConnected){ delete b.dataset.armed; b.textContent="×"; } },3000); } }
+  });
+  $("#filter").addEventListener("change",renderLogs);
+  document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="visible") load(true); });
+
+  // ---------- init ----------
+  try{ const c=ls.get(LS_CACHE); if(c) D=norm(JSON.parse(c)); }catch(e){}
+  render();
+  load();
+})();
+</script>
+</body>
+</html>
