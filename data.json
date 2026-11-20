@@ -240,7 +240,16 @@
    "note": "구매 후 첫 잉입",
    "penId": "jinhao82",
    "type": "fill"
+  },
+  {
+   "id": "lmwp2mpo7b9ji",
+   "createdAt": "2026-11-20T14:25:18.199Z",
+   "penId": "asvine-p36",
+   "type": "use",
+   "date": "2026-11-20",
+   "ink": "TAG Stationery Kyo-iro Fushimi Inari",
+   "note": ""
   }
  ],
- "updatedAt": "2026-11-20T00:00:00Z"
+ "updatedAt": "2026-11-20T14:25:18.199Z"
 }
