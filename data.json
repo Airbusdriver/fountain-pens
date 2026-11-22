@@ -74,7 +74,7 @@
    "cleanEvery": 30,
    "ink": "Jinhao Black",
    "filledAt": "2026-11-14",
-   "lastUsed": "2026-11-21",
+   "lastUsed": "2026-11-22",
    "cleanedAt": ""
   }
  },
@@ -285,7 +285,16 @@
    "date": "2026-11-22",
    "ink": "Pilot Iroshizuku Momiji",
    "note": ""
+  },
+  {
+   "id": "lmwrqld84sy0z",
+   "createdAt": "2026-11-22T11:11:38.548Z",
+   "penId": "pen-mwfuftmd",
+   "type": "use",
+   "date": "2026-11-22",
+   "ink": "Jinhao Black",
+   "note": ""
   }
  ],
- "updatedAt": "2026-11-22T11:11:35.886Z"
+ "updatedAt": "2026-11-22T11:11:38.548Z"
 }
