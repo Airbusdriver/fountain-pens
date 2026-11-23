@@ -52,7 +52,7 @@
    "cleanEvery": 30,
    "ink": "Pilot Iroshizuku Momiji",
    "filledAt": "2026-11-20",
-   "lastUsed": "2026-11-22",
+   "lastUsed": "2026-11-23",
    "cleanedAt": ""
   },
   "jinhao9016": {
@@ -303,7 +303,16 @@
    "date": "2026-11-23",
    "ink": "TAG Stationery Kyo-iro Fushimi Inari",
    "note": ""
+  },
+  {
+   "id": "lmwt70o4payfd",
+   "createdAt": "2026-11-23T11:39:12.553Z",
+   "penId": "jinhao82",
+   "type": "use",
+   "date": "2026-11-23",
+   "ink": "Pilot Iroshizuku Momiji",
+   "note": ""
   }
  ],
- "updatedAt": "2026-11-23T11:39:05.692Z"
+ "updatedAt": "2026-11-23T11:39:12.553Z"
 }
