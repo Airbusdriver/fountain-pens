@@ -30,7 +30,7 @@
    "cleanEvery": 30,
    "ink": "TAG Stationery Kyo-iro Fushimi Inari",
    "filledAt": "2026-11-17",
-   "lastUsed": "2026-11-23",
+   "lastUsed": "2026-11-24",
    "cleanedAt": ""
   },
   "kakuno": {
@@ -321,7 +321,16 @@
    "date": "2026-11-23",
    "ink": "Jinhao Black",
    "note": ""
+  },
+  {
+   "id": "lmwullf8zst79",
+   "createdAt": "2026-11-24T11:15:01.619Z",
+   "penId": "asvine-p36",
+   "type": "use",
+   "date": "2026-11-24",
+   "ink": "TAG Stationery Kyo-iro Fushimi Inari",
+   "note": ""
   }
  ],
- "updatedAt": "2026-11-23T11:39:15.419Z"
+ "updatedAt": "2026-11-24T11:15:01.619Z"
 }
