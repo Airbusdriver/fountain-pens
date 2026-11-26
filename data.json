@@ -6,9 +6,9 @@
    "order": 1,
    "useEvery": 7,
    "cleanEvery": 45,
-   "ink": "",
-   "filledAt": "",
-   "lastUsed": "",
+   "ink": "Pilot Iroshizuku Tsuki-yo",
+   "filledAt": "2026-11-26",
+   "lastUsed": "2026-11-26",
    "cleanedAt": ""
   },
   "heritage912": {
@@ -420,7 +420,16 @@
    "date": "2026-11-26",
    "ink": "TAG Stationery Kyo-iro Fushimi Inari",
    "note": "영어공부"
+  },
+  {
+   "id": "lmwxl4dzn5ouw",
+   "createdAt": "2026-11-26T13:25:05.363Z",
+   "penId": "custom823",
+   "type": "fill",
+   "date": "2026-11-26",
+   "ink": "Pilot Iroshizuku Tsuki-yo",
+   "note": ""
   }
  ],
- "updatedAt": "2026-11-26T13:24:41.679Z"
+ "updatedAt": "2026-11-26T13:25:05.363Z"
 }
