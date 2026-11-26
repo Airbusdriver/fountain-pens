@@ -50,9 +50,9 @@
    "order": 5,
    "useEvery": 4,
    "cleanEvery": 30,
-   "ink": "Pilot Iroshizuku Momiji",
-   "filledAt": "2026-11-20",
-   "lastUsed": "2026-11-25",
+   "ink": "J. Herbin Poussière de Lune (#48)",
+   "filledAt": "2026-11-26",
+   "lastUsed": "2026-11-26",
    "cleanedAt": ""
   },
   "jinhao9016": {
@@ -375,7 +375,16 @@
    "date": "2026-11-25",
    "ink": "Jinhao Black",
    "note": ""
+  },
+  {
+   "id": "lmwwykyrk6cdr",
+   "createdAt": "2026-11-26T02:54:07.616Z",
+   "penId": "jinhao82",
+   "type": "fill",
+   "date": "2026-11-26",
+   "ink": "J. Herbin Poussière de Lune (#48)",
+   "note": "잘못 입력"
   }
  ],
- "updatedAt": "2026-11-25T05:42:44.554Z"
+ "updatedAt": "2026-11-26T02:54:07.616Z"
 }
