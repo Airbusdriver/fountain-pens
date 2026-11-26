@@ -50,7 +50,7 @@
    "order": 5,
    "useEvery": 4,
    "cleanEvery": 30,
-   "ink": "J. Herbin Poussière de Lune (#48)",
+   "ink": "TAG Stationery Kyo-no-oto Urahairo",
    "filledAt": "2026-11-26",
    "lastUsed": "2026-11-26",
    "cleanedAt": ""
@@ -393,7 +393,16 @@
    "date": "2026-11-26",
    "ink": "Pilot Iroshizuku Momiji",
    "note": "잘못 입력"
+  },
+  {
+   "id": "lmwwymjb2ud2z",
+   "createdAt": "2026-11-26T02:55:20.894Z",
+   "penId": "jinhao82",
+   "type": "fill",
+   "date": "2026-11-26",
+   "ink": "TAG Stationery Kyo-no-oto Urahairo",
+   "note": ""
   }
  ],
- "updatedAt": "2026-11-26T02:54:19.409Z"
+ "updatedAt": "2026-11-26T02:55:20.894Z"
 }
