@@ -17,9 +17,9 @@
    "order": 2,
    "useEvery": 7,
    "cleanEvery": 45,
-   "ink": "",
-   "filledAt": "",
-   "lastUsed": "",
+   "ink": "Pilot Iroshizuku Shin-ryoku",
+   "filledAt": "2026-11-26",
+   "lastUsed": "2026-11-26",
    "cleanedAt": ""
   },
   "asvine-p36": {
@@ -429,7 +429,16 @@
    "date": "2026-11-26",
    "ink": "Pilot Iroshizuku Tsuki-yo",
    "note": ""
+  },
+  {
+   "id": "lmwxl4mvenxxn",
+   "createdAt": "2026-11-26T13:25:16.874Z",
+   "penId": "heritage912",
+   "type": "fill",
+   "date": "2026-11-26",
+   "ink": "Pilot Iroshizuku Shin-ryoku",
+   "note": ""
   }
  ],
- "updatedAt": "2026-11-26T13:25:05.363Z"
+ "updatedAt": "2026-11-26T13:25:16.874Z"
 }
