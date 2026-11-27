@@ -63,7 +63,7 @@
    "cleanEvery": 30,
    "ink": "Pilot Iroshizuku Momiji",
    "filledAt": "2026-11-26",
-   "lastUsed": "2026-11-26",
+   "lastUsed": "2026-11-27",
    "cleanedAt": ""
   },
   "pen-mwfuftmd": {
@@ -474,7 +474,16 @@
    "date": "2026-11-27",
    "ink": "TAG Stationery Kyo-no-oto Urahairo",
    "note": ""
+  },
+  {
+   "id": "lmwyw0zi5v9xc",
+   "createdAt": "2026-11-27T11:18:08.573Z",
+   "penId": "jinhao9016",
+   "type": "use",
+   "date": "2026-11-27",
+   "ink": "Pilot Iroshizuku Momiji",
+   "note": ""
   }
  ],
- "updatedAt": "2026-11-27T11:18:06.577Z"
+ "updatedAt": "2026-11-27T11:18:08.573Z"
 }
