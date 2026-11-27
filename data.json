@@ -52,7 +52,7 @@
    "cleanEvery": 30,
    "ink": "TAG Stationery Kyo-no-oto Urahairo",
    "filledAt": "2026-11-26",
-   "lastUsed": "2026-11-26",
+   "lastUsed": "2026-11-27",
    "cleanedAt": ""
   },
   "jinhao9016": {
@@ -465,7 +465,16 @@
    "date": "2026-11-27",
    "ink": "TAG Stationery Kyo-iro Fushimi Inari",
    "note": ""
+  },
+  {
+   "id": "lmwyw0xyptnlp",
+   "createdAt": "2026-11-27T11:18:06.577Z",
+   "penId": "jinhao82",
+   "type": "use",
+   "date": "2026-11-27",
+   "ink": "TAG Stationery Kyo-no-oto Urahairo",
+   "note": ""
   }
  ],
- "updatedAt": "2026-11-27T11:18:03.911Z"
+ "updatedAt": "2026-11-27T11:18:06.577Z"
 }
