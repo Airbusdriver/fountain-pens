@@ -8,7 +8,7 @@
    "cleanEvery": 45,
    "ink": "Pilot Iroshizuku Tsuki-yo",
    "filledAt": "2026-11-26",
-   "lastUsed": "2026-11-26",
+   "lastUsed": "2026-11-27",
    "cleanedAt": ""
   },
   "heritage912": {
@@ -438,7 +438,16 @@
    "date": "2026-11-26",
    "ink": "Pilot Iroshizuku Shin-ryoku",
    "note": ""
+  },
+  {
+   "id": "lmwyw0sfkohw3",
+   "createdAt": "2026-11-27T11:17:59.408Z",
+   "penId": "custom823",
+   "type": "use",
+   "date": "2026-11-27",
+   "ink": "Pilot Iroshizuku Tsuki-yo",
+   "note": ""
   }
  ],
- "updatedAt": "2026-11-26T13:25:16.874Z"
+ "updatedAt": "2026-11-27T11:17:59.408Z"
 }
